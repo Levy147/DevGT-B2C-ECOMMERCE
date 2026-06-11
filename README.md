@@ -70,8 +70,8 @@ npm run preview  # previsualizar build
 
 | Campo | Valor |
 |-------|-------|
-| Usuario | `admin` |
-| Contraseña | `fatima2026` |
+| Usuario | `fatima` |
+| Contraseña | `fatima` |
 | Ruta | `/admin/login` |
 
 Los usuarios de tienda se crean en `/registro` y entran por `/login`.
