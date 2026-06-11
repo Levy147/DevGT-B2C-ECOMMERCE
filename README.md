@@ -1,71 +1,154 @@
-# DevGT B2C E-Commerce & Inventory Management
+# DevGT B2C E-Commerce — Demo Frontend
 
-![C#](https://img.shields.io/badge/C%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
-![.NET](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/postgresql-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Demo](https://img.shields.io/badge/Estado-Demo%20Frontend-orange?style=for-the-badge)
 
-Plataforma B2C de comercio electrónico y sistema de gestión de inventario, diseñada con una arquitectura Cliente-Servidor fuertemente desacoplada. El proyecto implementa un *backend* robusto y escalable en C# (.NET Core) utilizando Arquitectura N-Capas, y un *frontend* interactivo y optimizado construido con React y Vite.
+**Variedades Fatima** — Demo interactiva de tienda B2C y panel administrativo, construida con **React + Vite + Tailwind CSS**. Pensada para presentar flujos de compra, inventario y gestión de pedidos a clientes.
 
-🔗 **[Ver Demo en Producción (Frontend)](#)**  |  🔗 **[Documentación API Swagger](#)**
-
----
-
-## ✨ Características Principales (Features)
-- **Catálogo Dinámico B2C:** Visualización de productos organizados por categorías con carga asíncrona.
-- **Carrito de Compras Reactivo:** Gestión de estado global para agregar, actualizar cantidades y calcular subtotales en tiempo real.
-- **Panel de Administración Privado:** Dashboard para gestión de inventario (CRUD de productos), control de stock y seguimiento de órdenes.
-- **Seguridad y Autenticación:** Acceso administrativo protegido mediante JSON Web Tokens (JWT) y rutas privadas.
-- **Diseño Responsivo (Mobile-First):** Interfaz optimizada con Tailwind CSS para una experiencia de usuario perfecta en cualquier dispositivo.
+> **Alcance actual:** solo existe el **Frontend**. Los datos viven en mocks + `localStorage` del navegador. No hay backend, base de datos ni API desplegada todavía.
 
 ---
 
-## 🖼️ Interfaz de Usuario (Screenshots)
+## ✨ Qué incluye la demo
 
-| Vista del Catálogo | Panel de Administración | Carrito de Compras |
-| :---: | :---: | :---: |
-| <img src="URL_IMAGEN_CATALOGO" width="250"/> | <img src="URL_IMAGEN_ADMIN" width="250"/> | <img src="URL_IMAGEN_CARRITO" width="250"/> |
+### Tienda (cliente)
+- Catálogo con **50 productos** en **10 categorías** + secciones **Ofertas**, **Lo Nuevo** y **Mayoreo**
+- Carrusel promocional en home, ordenamiento (precio, ofertas, novedades) y paginación (15/25/30)
+- Detalle de producto: SKU, descripción, reseñas, carrusel relacionado y suscripción a promociones
+- Carrito reactivo con modal de cantidad, subtotal, envío y persistencia local
+- Checkout en **3 pasos**: envío → pago → confirmación (con código de rastreo)
+- Registro e inicio de sesión de usuario (ilustrativo) + edición de perfil
+- Rastreo de pedidos por código `VF-XXXXXXXX`
+- Códigos promocionales de ejemplo: `BIENVENIDO10`, `FATIMA15`
+- Diseño responsive (mobile-first) y botón de contacto WhatsApp
 
-*(Nota: Reemplazar los marcadores con las URLs de las capturas de pantalla una vez desplegada la aplicación).*
-
----
-
-## 🚀 Arquitectura Tecnológica
-
-### Backend (API RESTful)
-Desarrollado bajo los principios de *Clean Architecture* para garantizar alta cohesión y bajo acoplamiento.
-- **Framework:** C# .NET Core
-- **Arquitectura:** N-Tier (API, Core/Domain, Infrastructure)
-- **ORM:** Entity Framework Core (Code-First)
-- **Base de Datos:** Relacional (SQL Server / PostgreSQL)
-- **Seguridad:** Autenticación y autorización basada en JWT, encriptación de contraseñas, políticas estrictas de CORS y prevención de inyecciones SQL.
-
-### Frontend (SPA)
-Construido para ofrecer una experiencia de usuario fluida y reactiva.
-- **Core:** React.js (Vite para HMR y compilación ultrarrápida)
-- **Estilos:** Tailwind CSS
-- **Enrutamiento:** React Router DOM
-- **Gestión de Estado:** Context API / Zustand
-- **Cliente HTTP:** Axios (con interceptores para manejo automático de *tokens*)
+### Panel administrativo
+- Login protegido con ruta privada (`/admin/login`)
+- Métricas: ventas del día, órdenes activas, bajo stock
+- Pedidos unificados con detalle (cliente, dirección, pago, productos) y flujo de estados
+- CRUD de inventario, ofertas/descuentos con confirmación, paginación y vista grid/lista
+- Lista de usuarios registrados, suscriptores y campañas de email (simuladas)
+- Generador de códigos promocionales
 
 ---
 
-## 📂 Estructura del Monorepo
+## 🛠️ Stack tecnológico (implementado)
+
+| Tecnología | Uso |
+|------------|-----|
+| **React 19** | UI |
+| **Vite 8** | Build y dev server |
+| **Tailwind CSS 4** | Estilos (`@tailwindcss/vite`) |
+| **React Router DOM 7** | Navegación |
+| **Context API** | Estado global (carrito, productos, órdenes, auth, usuarios, promos) |
+| **Lucide React** | Iconos |
+| **SweetAlert2** | Alertas y confirmaciones |
+| **localStorage** | Persistencia demo (productos, carrito, órdenes, usuarios) |
+
+**No incluido aún:** C# .NET, PostgreSQL, JWT real, Axios, Swagger, backend API.
+
+---
+
+## 🚀 Cómo ejecutar
+
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+
+Abre **http://localhost:5173**
+
+```bash
+npm run build    # producción → carpeta dist/
+npm run preview  # previsualizar build
+```
+
+### Credenciales demo (admin)
+
+| Campo | Valor |
+|-------|-------|
+| Usuario | `admin` |
+| Contraseña | `fatima2026` |
+| Ruta | `/admin/login` |
+
+Los usuarios de tienda se crean en `/registro` y entran por `/login`.
+
+---
+
+## 🗺️ Rutas principales
+
+| Ruta | Descripción |
+|------|-------------|
+| `/` | Home + catálogo paginado |
+| `/categorias` | Hub de categorías |
+| `/categorias/:slug` | Productos por categoría u ofertas |
+| `/producto/:id` | Detalle de producto |
+| `/checkout` | Finalizar compra (3 pasos) |
+| `/registro` | Registro de usuario |
+| `/login` | Login de usuario |
+| `/perfil` | Editar perfil |
+| `/rastreo` | Seguimiento de pedido |
+| `/admin/login` | Login administrador |
+| `/admin` | Panel de control |
+
+---
+
+## 📂 Estructura del proyecto
 
 ```text
 DevGT-B2C-ECOMMERCE/
-├── Backend/                          # Solución C# .NET
-│   ├── TiendaApi.API/                # Capa de Presentación (Controladores, Middlewares, CORS)
-│   ├── TiendaApi.Core/               # Capa de Dominio (Entidades, DTOs, Interfaces)
-│   └── TiendaApi.Infrastructure/     # Capa de Acceso a Datos (DbContext, Repositorios, Servicios JWT)
-│
-└── Frontend/                         # Aplicación React
+└── Frontend/
     ├── src/
-    │   ├── assets/                   # Recursos estáticos
-    │   ├── components/               # Componentes UI reutilizables
-    │   ├── context/                  # Estado global (Cart, Auth)
-    │   ├── pages/                    # Vistas (Catálogo, Checkout, Admin Dashboard)
-    │   └── services/                 # Peticiones Axios y lógica HTTP
-    ├── tailwind.config.js            # Configuración de diseño
-    └── vite.config.js                # Configuración de empaquetado
+    │   ├── components/     # UI reutilizable (Navbar, carrito, modales, carruseles…)
+    │   ├── context/        # Cart, Products, Orders, Auth, Users, Promo, Subscribers
+    │   ├── data/           # mockProducts, categorías, credenciales demo
+    │   ├── pages/          # Home, Checkout, Admin, Categorías, Perfil, Rastreo…
+    │   └── utils/          # storage, precios, confirmaciones
+    ├── index.html
+    ├── vite.config.js
+    └── package.json
+```
+
+---
+
+## ⚠️ Limitaciones de la demo
+
+- Los datos **no se sincronizan** entre dispositivos ni usuarios
+- La autenticación es **solo frontend** (sin JWT ni servidor)
+- Las contraseñas se guardan en texto plano en `localStorage` (solo para demo)
+- Los emails y campañas de marketing son **simulados**
+- Al limpiar datos del navegador se pierde carrito, órdenes e inventario editado
+
+---
+
+## 🖼️ Capturas de pantalla
+
+| Catálogo | Admin | Carrito |
+| :---: | :---: | :---: |
+| *(pendiente)* | *(pendiente)* | *(pendiente)* |
+
+> Agregar URLs de imágenes o deploy (Vercel/Netlify) cuando esté publicado.
+
+---
+
+## 🔮 Roadmap (próxima fase)
+
+Arquitectura objetivo para producción:
+
+```text
+DevGT-B2C-ECOMMERCE/
+├── Backend/                  # Pendiente — C# .NET Core, N-Capas
+│   ├── TiendaApi.API/
+│   ├── TiendaApi.Core/
+│   └── TiendaApi.Infrastructure/   # EF Core + PostgreSQL + JWT
+└── Frontend/                 # ✅ Demo actual — conectar vía Axios
+```
+
+---
+
+## 👤 Autor
+
+Demo desarrollada por **Herbert Galeano** — Variedades Fatima, Guatemala.
