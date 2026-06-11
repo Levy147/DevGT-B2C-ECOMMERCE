@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, Link } from 'react-router-dom'
 import { Lock, User, Store } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import FloatingBackground from '../components/FloatingBackground'
@@ -106,9 +106,9 @@ export default function Login() {
         </form>
 
         <p className="text-center mt-6">
-          <a href="/" className="text-sm text-teal hover:text-forest transition-colors">
+          <Link to="/" className="text-sm text-teal hover:text-forest transition-colors">
             ← Volver a la tienda
-          </a>
+          </Link>
         </p>
       </div>
     </div>

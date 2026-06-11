@@ -22,7 +22,7 @@ import OrderTracking from './pages/OrderTracking'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || undefined}>
       <ScrollToTop />
       <AuthProvider>
         <ProductsProvider>

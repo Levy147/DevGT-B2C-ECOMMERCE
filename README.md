@@ -66,6 +66,35 @@ npm run build    # producción → carpeta dist/
 npm run preview  # previsualizar build
 ```
 
+---
+
+## 🌐 Desplegar en GitHub Pages
+
+El proyecto incluye un workflow en `.github/workflows/deploy-pages.yml` que publica automáticamente el `Frontend` al hacer push a `main`.
+
+### Pasos (una sola vez en GitHub)
+
+1. Sube el repositorio a GitHub.
+2. Ve a **Settings → Pages → Build and deployment**.
+3. En **Source**, selecciona **GitHub Actions**.
+4. Haz push a la rama `main` (o ejecuta el workflow manualmente en **Actions**).
+
+Tu sitio quedará en:
+
+`https://TU_USUARIO.github.io/DevGT-B2C-ECOMMERCE/`
+
+> Si tu repositorio tiene **otro nombre**, edita `REPO_NAME` en `Frontend/vite.config.js`.
+
+### Build local (simular GitHub Pages)
+
+```bash
+cd Frontend
+# PowerShell:
+$env:GITHUB_PAGES="true"; npm run build:pages
+# Linux / macOS:
+GITHUB_PAGES=true npm run build:pages
+```
+
 ### Credenciales demo (admin)
 
 | Campo | Valor |
