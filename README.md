@@ -70,18 +70,21 @@ npm run preview  # previsualizar build
 
 ## 🌐 Desplegar en GitHub Pages
 
-El proyecto incluye un workflow en `.github/workflows/deploy-pages.yml` que publica automáticamente el `Frontend` al hacer push a `main`.
+El workflow `.github/workflows/deploy-pages.yml` compila el `Frontend` con Vite y publica en la rama **`gh-pages`** (sin Jekyll).
 
 ### Pasos (una sola vez en GitHub)
 
 1. Sube el repositorio a GitHub.
 2. Ve a **Settings → Pages → Build and deployment**.
-3. En **Source**, selecciona **GitHub Actions**.
-4. Haz push a la rama `main` (o ejecuta el workflow manualmente en **Actions**).
+3. En **Source**, selecciona **Deploy from a branch** (no uses `/docs`).
+4. Elige la rama **`gh-pages`** y carpeta **`/ (root)`**.
+5. Guarda y haz push a `main` (o ejecuta el workflow en **Actions → Deploy Frontend to GitHub Pages**).
 
 Tu sitio quedará en:
 
 `https://TU_USUARIO.github.io/DevGT-B2C-ECOMMERCE/`
+
+> **Importante:** no uses la carpeta `/docs` ni el modo Jekyll — este proyecto es React/Vite, no Jekyll. El archivo `.nojekyll` en el build evita ese error.
 
 > Si tu repositorio tiene **otro nombre**, edita `REPO_NAME` en `Frontend/vite.config.js`.
 
