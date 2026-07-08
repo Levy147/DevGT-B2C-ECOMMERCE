@@ -4,28 +4,28 @@ export function buildWhatsAppMessage(order) {
   const items = order.items.map((i) => `• ${i.name} x${i.quantity} — Q${(i.price * i.quantity).toFixed(2)}`).join('\n')
 
   return [
-    '🛍️ *Nuevo Pedido - Variedades Fatima*',
+    'NUEVO PEDIDO - Variedades Fatima',
     '',
-    '👤 *Cliente:*',
+    'Cliente:',
     `  ${order.customer.nombre}`,
     `  Tel: ${order.customer.telefono}`,
     `  ${order.customer.email}`,
     '',
-    '📍 *Dirección:*',
+    'Direccion:',
     `  ${order.shippingInfo.direccion}, ${order.shippingInfo.ciudad}`,
     order.shippingInfo.referencia ? `  Ref: ${order.shippingInfo.referencia}` : '',
     '',
-    '📦 *Productos:*',
+    'Productos:',
     items,
     '',
-    '💳 *Pago:* ' + (order.payment?.method === 'efectivo' ? 'Efectivo contra entrega' : order.payment?.method === 'transferencia' ? 'Transferencia bancaria' : 'Tarjeta'),
+    'Pago: ' + (order.payment?.method === 'efectivo' ? 'Efectivo contra entrega' : order.payment?.method === 'transferencia' ? 'Transferencia bancaria' : 'Tarjeta'),
     '',
-    '💰 *Total: Q' + order.total.toFixed(2) + '*',
-    '🚚 *Envío:* ' + (order.shippingInfo.method === 'domicilio' ? 'A domicilio' : 'Recoger en tienda'),
+    'Total: Q' + order.total.toFixed(2),
+    'Envio: ' + (order.shippingInfo.method === 'domicilio' ? 'A domicilio' : 'Recoger en tienda'),
     '',
-    order.promoCode ? '🏷️ Promo: ' + order.promoCode : '',
+    order.promoCode ? 'Promo: ' + order.promoCode : '',
     '',
-    '📝 ID: #' + order.id,
+    'ID: #' + order.id,
   ]
     .filter(Boolean)
     .join('\n')
