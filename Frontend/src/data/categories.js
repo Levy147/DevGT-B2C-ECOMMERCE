@@ -9,12 +9,12 @@ import {
   Cookie,
   Heart,
   Home,
-  Flame,
+  Tag,
   Star,
   Boxes,
-  Tag,
   Apple,
   Beef,
+  Droplets,
 } from 'lucide-react'
 
 export const CATEGORIES = [
@@ -25,7 +25,7 @@ export const CATEGORIES = [
   { slug: 'bebidas', name: 'Bebidas', icon: Coffee, color: 'from-amber-700 to-amber-900', image: 'https://images.unsplash.com/photo-1559056197-641a0ac8b55c?w=600&h=400&fit=crop' },
   { slug: 'lacteos', name: 'Lacteos', icon: Milk, color: 'from-blue-400 to-blue-600', image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=600&h=400&fit=crop' },
   { slug: 'panaderia', name: 'Panaderia', icon: Croissant, color: 'from-yellow-500 to-orange-600', image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop' },
-  { slug: 'limpieza', name: 'Limpieza', icon: Sparkles, color: 'from-cyan-500 to-teal-600', image: 'https://images.unsplash.com/photo-1583947215250-46b672c5cd0b?w=600&h=400&fit=crop' },
+  { slug: 'limpieza', name: 'Limpieza', icon: Droplets, color: 'from-cyan-500 to-teal-600', image: 'https://images.unsplash.com/photo-1583947215250-46b672c5cd0b?w=600&h=400&fit=crop' },
   { slug: 'enlatados', name: 'Enlatados', icon: Package, color: 'from-slate-500 to-slate-700', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&h=400&fit=crop' },
   { slug: 'cuidado-personal', name: 'Cuidado Personal', icon: Heart, color: 'from-purple-400 to-purple-600', image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=400&fit=crop' },
   { slug: 'snacks', name: 'Snacks', icon: Cookie, color: 'from-pink-500 to-rose-600', image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400&h=400&fit=crop' },
@@ -33,9 +33,9 @@ export const CATEGORIES = [
 ]
 
 export const SPECIAL_CATEGORIES = [
-  { slug: 'ofertas', name: 'Ofertas', icon: Tag, color: 'from-red-500 to-red-700', badge: null, description: 'Descuentos imperdibles' },
-  { slug: 'lo-nuevo', name: 'Lo Nuevo', icon: Star, color: 'from-violet-500 to-violet-700', badge: null, description: 'Recien llegados a la tienda' },
-  { slug: 'mayoreo', name: 'Mayoreo', icon: Boxes, color: 'from-teal-600 to-teal-800', badge: null, description: 'Precios especiales por volumen' },
+  { slug: 'ofertas', name: 'Ofertas', icon: Tag, color: 'from-red-500 to-red-700', description: 'Descuentos imperdibles' },
+  { slug: 'lo-nuevo', name: 'Lo Nuevo', icon: Star, color: 'from-violet-500 to-violet-700', description: 'Recien llegados a la tienda' },
+  { slug: 'mayoreo', name: 'Mayoreo', icon: Boxes, color: 'from-teal-600 to-teal-800', description: 'Precios especiales por volumen' },
 ]
 
 export function getCategoryBySlug(slug) {

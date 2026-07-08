@@ -18,8 +18,7 @@ export default function CategoriesPage() {
               to={`/categorias/${cat.slug}`}
               className={`group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br ${cat.color} text-white hover:scale-[1.02] hover:shadow-xl transition-all`}
             >
-              {cat.badge && <span className="text-3xl mb-2 block">{cat.badge}</span>}
-              {!cat.badge && <cat.icon className="w-8 h-8 mb-2" />}
+              <cat.icon className="w-8 h-8 mb-2" />
               <h2 className="text-xl font-bold">{cat.name}</h2>
               <p className="text-white/80 text-sm mt-1">{cat.description}</p>
               <cat.icon className="absolute -bottom-2 -right-2 w-16 h-16 opacity-20 group-hover:opacity-40 transition-opacity" />
