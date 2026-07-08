@@ -4,13 +4,12 @@ import tailwindcss from '@tailwindcss/vite'
 import { copyFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const REPO_NAME = 'DevGT-B2C-ECOMMERCE'
+const REPO_NAME = process.env.REPO_NAME || 'DevGT-B2C-ECOMMERCE'
 const isGitHubPages = process.env.GITHUB_PAGES === 'true'
-const outDir = isGitHubPages ? resolve('..', 'docs') : 'dist'
 
 export default defineConfig({
   base: isGitHubPages ? `/${REPO_NAME}/` : '/',
-  outDir,
+  outDir: 'dist',
   plugins: [
     react(),
     tailwindcss(),
@@ -18,8 +17,8 @@ export default defineConfig({
       name: 'spa-fallback-404',
       closeBundle() {
         if (isGitHubPages) {
-          copyFileSync(resolve(outDir, 'index.html'), resolve(outDir, '404.html'))
-          writeFileSync(resolve(outDir, '.nojekyll'), '')
+          copyFileSync(resolve('dist', 'index.html'), resolve('dist', '404.html'))
+          writeFileSync(resolve('dist', '.nojekyll'), '')
         }
       },
     },
