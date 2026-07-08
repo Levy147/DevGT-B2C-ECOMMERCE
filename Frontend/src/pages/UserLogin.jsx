@@ -20,10 +20,10 @@ export default function UserLogin() {
     e.preventDefault()
     const result = loginUser(email, password)
     if (result.success) {
-      Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: '¡Bienvenido!', showConfirmButton: false, timer: 2000, background: '#f8fffd' })
+      Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: '¡Bienvenido!', showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
       navigate('/perfil')
     } else {
-      Swal.fire({ toast: true, position: 'top-end', icon: 'error', title: result.error, showConfirmButton: false, timer: 2500, background: '#f8fffd' })
+      Swal.fire({ toast: true, position: 'top-end', icon: 'error', title: result.error, showConfirmButton: false, timer: 2500, background: '#f5f8fd' })
     }
   }
 

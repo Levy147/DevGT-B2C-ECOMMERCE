@@ -9,6 +9,8 @@ import { useProducts } from '../context/ProductsContext'
 import { useUsers } from '../context/UsersContext'
 import { usePromo } from '../context/PromoContext'
 import { formatPrice } from '../utils/productUtils'
+import { buildWhatsAppMessage, openWhatsApp } from '../utils/whatsapp'
+import { sendOrderToSheets } from '../utils/googleSheets'
 
 const STEPS = [
   { id: 1, label: 'Envío', icon: Truck },
@@ -48,11 +50,11 @@ export default function Checkout() {
   const applyPromo = () => {
     const result = validateCode(promoInput)
     if (!result.valid) {
-      Swal.fire({ toast: true, position: 'top-end', icon: 'error', title: result.error, showConfirmButton: false, timer: 2000, background: '#f8fffd' })
+      Swal.fire({ toast: true, position: 'top-end', icon: 'error', title: result.error, showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
       return
     }
     setAppliedPromo(result.promo)
-    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: `Código ${result.promo.code} aplicado`, showConfirmButton: false, timer: 2000, background: '#f8fffd' })
+    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: `Código ${result.promo.code} aplicado`, showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
   }
 
   const handleSubmit = () => {
@@ -84,13 +86,17 @@ export default function Checkout() {
       reduceStock(order.items)
       clearCart()
 
+      const msg = buildWhatsAppMessage(order)
+      openWhatsApp(msg)
+      sendOrderToSheets(order)
+
       Swal.fire({
         title: '¡Pedido confirmado!',
-        html: `<p style="color:#67998C;">Código de rastreo:</p><p style="font-family:monospace;font-weight:bold;color:#306658;font-size:18px;">${order.trackingCode}</p><p style="color:#B1CCC5;font-size:14px;margin-top:12px;">Guarda este código para rastrear tu pedido</p>`,
+        html: `<p style="color:#5A8CC5;">Te redirigimos a WhatsApp con el resumen de tu pedido.</p>`,
         icon: 'success',
-        confirmButtonColor: '#306658',
-        background: '#f8fffd',
-      }).then(() => navigate('/rastreo'))
+        confirmButtonColor: '#1E56A0',
+        background: '#f5f8fd',
+      })
       setLoading(false)
     }, 800)
   }

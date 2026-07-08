@@ -28,6 +28,15 @@ const PRODUCT_TEMPLATES = [
   // Cuidado Personal (2)
   { name: 'Shampoo 3 en 1 750ml', category: 'Cuidado Personal', price: 32, image: '/images/productos/Shampoo3en1.jpeg', onSale: true, salePrice: 26.99 },
   { name: 'Crema Corporal Hidratante 200ml', category: 'Cuidado Personal', price: 38, image: '/images/productos/CremaCorporal.jpeg', onSale: true, salePrice: 32.99 },
+
+  // Nuevos productos
+  { name: 'Elotes Enlatados 1 lata', category: 'Enlatados', price: 12, image: '/images/productos/elotesenlatados.jpeg' },
+  { name: 'Pepinos Frescos 1 lb', category: 'Frutas y Verduras', price: 4, image: '/images/productos/Pepinos.jpeg' },
+  { name: 'Queso Duro 1 lb', category: 'Lacteos', price: 18, image: '/images/productos/QuesoDuro.jpeg' },
+  { name: 'Queso Fresco 1 lb', category: 'Lacteos', price: 14, image: '/images/productos/QuesoFresco.jpeg' },
+  { name: 'Queso Oreado 1 lb', category: 'Lacteos', price: 16, image: '/images/productos/QuesoOreado.jpeg' },
+  { name: 'Remolacha Fresca 1 lb', category: 'Frutas y Verduras', price: 5, image: '/images/productos/remolacha.jpeg' },
+  { name: 'Zucchini Fresco 1 lb', category: 'Frutas y Verduras', price: 6, image: '/images/productos/Zuchini.jpeg' },
 ]
 
 function slugify(category) {

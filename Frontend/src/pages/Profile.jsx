@@ -35,7 +35,7 @@ export default function Profile() {
     if (!ok) return
 
     updateProfile(currentUser.id, form)
-    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Perfil actualizado', showConfirmButton: false, timer: 2000, background: '#f8fffd' })
+    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Perfil actualizado', showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
   }
 
   return (

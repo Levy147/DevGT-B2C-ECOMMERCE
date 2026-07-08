@@ -30,7 +30,7 @@ export default function SlideCart() {
         title: 'Stock máximo alcanzado',
         showConfirmButton: false,
         timer: 2000,
-        background: '#f8fffd',
+        background: '#f5f8fd',
       })
       return
     }

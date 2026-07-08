@@ -34,7 +34,7 @@ export default function Register() {
         title: 'Las contraseñas no coinciden',
         showConfirmButton: false,
         timer: 2500,
-        background: '#f8fffd',
+        background: '#f5f8fd',
       })
       return
     }
@@ -47,7 +47,7 @@ export default function Register() {
         title: 'La contraseña debe tener al menos 6 caracteres',
         showConfirmButton: false,
         timer: 2500,
-        background: '#f8fffd',
+        background: '#f5f8fd',
       })
       return
     }
@@ -62,8 +62,8 @@ export default function Register() {
           title: '¡Registro exitoso!',
           text: `Bienvenido/a ${form.nombre}. Tu cuenta ha sido creada (demo).`,
           icon: 'success',
-          confirmButtonColor: '#306658',
-          background: '#f8fffd',
+          confirmButtonColor: '#1E56A0',
+          background: '#f5f8fd',
         }).then(() => navigate('/'))
       } else {
         Swal.fire({
@@ -73,7 +73,7 @@ export default function Register() {
           title: result.error,
           showConfirmButton: false,
           timer: 2500,
-          background: '#f8fffd',
+          background: '#f5f8fd',
         })
       }
       setLoading(false)

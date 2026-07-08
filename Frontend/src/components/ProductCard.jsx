@@ -20,7 +20,7 @@ export default function ProductCard({ product, index = 0, listView = false }) {
     e.preventDefault()
     e.stopPropagation()
     if (outOfStock || available <= 0) {
-      Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'Sin stock', showConfirmButton: false, timer: 2000, background: '#f8fffd' })
+      Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'Sin stock', showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
       return
     }
     setModalOpen(true)

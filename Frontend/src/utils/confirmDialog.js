@@ -6,11 +6,11 @@ export async function confirmChange({ title, html, confirmText = 'Confirmar' }) 
     html,
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#306658',
+    confirmButtonColor: '#1E56A0',
     cancelButtonColor: '#B1CCC5',
     confirmButtonText: confirmText,
     cancelButtonText: 'Cancelar',
-    background: '#f8fffd',
+    background: '#f5f8fd',
   })
   return result.isConfirmed
 }

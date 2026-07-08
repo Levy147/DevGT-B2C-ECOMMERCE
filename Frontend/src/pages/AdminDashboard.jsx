@@ -51,7 +51,7 @@ export default function AdminDashboard() {
 
     updateProduct(id, { name: editForm.name, price: parseFloat(editForm.price) || 0, stock: parseInt(editForm.stock, 10) || 0 })
     setEditingId(null)
-    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Actualizado', showConfirmButton: false, timer: 2000, background: '#f8fffd' })
+    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Actualizado', showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
   }
 
   const handleDelete = async (product) => {
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
   const handleSetSale = async (product) => {
     const salePrice = parseFloat(saleForm.salePrice)
     if (!salePrice || salePrice >= product.price) {
-      Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'Precio oferta debe ser menor al normal', showConfirmButton: false, timer: 2500, background: '#f8fffd' })
+      Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'Precio oferta debe ser menor al normal', showConfirmButton: false, timer: 2500, background: '#f5f8fd' })
       return
     }
     const ok = await confirmChange({
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
   const handleAddProduct = () => {
     const price = parseFloat(addForm.price)
     if (!addForm.name || !price) {
-      Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'Nombre y precio obligatorios', showConfirmButton: false, timer: 2500, background: '#f8fffd' })
+      Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'Nombre y precio obligatorios', showConfirmButton: false, timer: 2500, background: '#f5f8fd' })
       return
     }
     addProduct({
@@ -102,7 +102,7 @@ export default function AdminDashboard() {
     })
     setAddForm({ name: '', price: '', category: 'Cuidado Personal', image: '', description: '' })
     setShowAddForm(false)
-    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Producto agregado', showConfirmButton: false, timer: 2000, background: '#f8fffd' })
+    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Producto agregado', showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
   }
 
   const advanceStatus = async (order) => {
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
 
   const handleSendPromo = () => {
     const allEmails = [...subscribers.map((s) => s.email), ...users.map((u) => u.email)]
-    Swal.fire({ title: 'Campaña enviada (demo)', html: `<p>Simulado a ${allEmails.length} contactos</p>`, icon: 'success', confirmButtonColor: '#306658', background: '#f8fffd' })
+    Swal.fire({ title: 'Campaña enviada (demo)', html: `<p>Simulado a ${allEmails.length} contactos</p>`, icon: 'success', confirmButtonColor: '#1E56A0', background: '#f5f8fd' })
     sendPromoCampaign(promoSubject, promoMessage)
   }
 
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
             <div className="flex gap-2 mb-3">
               <input type="number" value={newPromoDiscount} onChange={(e) => setNewPromoDiscount(Number(e.target.value))} className="w-20 px-2 py-2 rounded-lg border border-sage/40 text-sm" min={5} max={50} />
               <span className="self-center text-teal text-sm">% desc.</span>
-              <button type="button" onClick={() => { const c = generateCode(newPromoDiscount); Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: `Código: ${c.code}`, showConfirmButton: false, timer: 3000, background: '#f8fffd' }) }} className="px-4 py-2 rounded-xl bg-forest text-mint text-sm font-semibold flex items-center gap-1"><Percent className="w-4 h-4" /> Generar</button>
+              <button type="button" onClick={() => { const c = generateCode(newPromoDiscount); Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: `Código: ${c.code}`, showConfirmButton: false, timer: 3000, background: '#f5f8fd' }) }} className="px-4 py-2 rounded-xl bg-forest text-mint text-sm font-semibold flex items-center gap-1"><Percent className="w-4 h-4" /> Generar</button>
             </div>
             <ul className="space-y-1 max-h-32 overflow-y-auto text-sm">
               {promoCodes.map((p) => (

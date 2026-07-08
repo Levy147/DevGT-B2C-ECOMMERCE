@@ -8,7 +8,7 @@ import {
 import { mockProducts } from '../data/mockProducts'
 import { loadStorage, saveStorage, STORAGE_KEYS } from '../utils/storage'
 
-const PRODUCTS_VERSION = 2
+const PRODUCTS_VERSION = 3
 
 const ProductsContext = createContext(null)
 

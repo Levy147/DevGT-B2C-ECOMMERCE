@@ -54,7 +54,7 @@ export default function ProductCarousel({ products, excludeId }) {
         title: 'Sin stock disponible',
         showConfirmButton: false,
         timer: 2000,
-        background: '#f8fffd',
+        background: '#f5f8fd',
       })
       return
     }

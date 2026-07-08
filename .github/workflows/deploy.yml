@@ -32,6 +32,7 @@ jobs:
         env:
           GITHUB_PAGES: 'true'
           REPO_NAME: ${{ github.event.repository.name }}
+          VITE_SHEETS_WEBHOOK_URL: ${{ secrets.VITE_SHEETS_WEBHOOK_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: Frontend/dist

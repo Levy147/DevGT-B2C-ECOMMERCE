@@ -18,7 +18,7 @@ export default function SubscribeSection() {
         title: 'Debes aceptar el aviso de privacidad',
         showConfirmButton: false,
         timer: 2500,
-        background: '#f8fffd',
+        background: '#f5f8fd',
       })
       return
     }
@@ -32,7 +32,7 @@ export default function SubscribeSection() {
         title: '¡Suscripción exitosa!',
         showConfirmButton: false,
         timer: 2500,
-        background: '#f8fffd',
+        background: '#f5f8fd',
       })
       setEmail('')
       setAccepted(false)
@@ -44,7 +44,7 @@ export default function SubscribeSection() {
         title: result.error,
         showConfirmButton: false,
         timer: 2500,
-        background: '#f8fffd',
+        background: '#f5f8fd',
       })
     }
   }
