@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ShoppingCart, Store, LayoutDashboard, LogOut, UserPlus, LogIn, Grid3X3, Package, User } from 'lucide-react'
+import { ShoppingCart, Store, LayoutDashboard, LogOut, UserPlus, LogIn, Grid3X3, User } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { useUsers } from '../context/UsersContext'
@@ -28,9 +28,6 @@ export default function Navbar() {
           <div className="flex items-center gap-1 sm:gap-2">
             <Link to="/categorias" className="flex items-center gap-1 px-2 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium text-teal hover:bg-mint/30">
               <Grid3X3 className="w-4 h-4" /><span className="hidden md:inline">Categorías</span>
-            </Link>
-            <Link to="/rastreo" className="hidden sm:flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-medium text-teal hover:bg-mint/30">
-              <Package className="w-4 h-4" /> Rastreo
             </Link>
           </div>
         )}

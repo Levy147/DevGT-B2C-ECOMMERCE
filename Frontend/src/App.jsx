@@ -18,7 +18,6 @@ import CategoriesPage from './pages/CategoriesPage'
 import CategoryProducts from './pages/CategoryProducts'
 import UserLogin from './pages/UserLogin'
 import Profile from './pages/Profile'
-import OrderTracking from './pages/OrderTracking'
 
 export default function App() {
   return (
@@ -40,7 +39,6 @@ export default function App() {
                       <Route path="/perfil" element={<Profile />} />
                       <Route path="/categorias" element={<CategoriesPage />} />
                       <Route path="/categorias/:slug" element={<CategoryProducts />} />
-                      <Route path="/rastreo" element={<OrderTracking />} />
                       <Route path="/admin/login" element={<Login />} />
                       <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
                     </Routes>

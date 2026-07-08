@@ -163,7 +163,7 @@ export default function Checkout() {
             {step === 3 && (
               <section className="bg-white/80 rounded-2xl border border-sage/30 p-6 animate-fade-up">
                 <h2 className="font-bold text-deep flex items-center gap-2 mb-4"><CheckCircle className="w-5 h-5 text-forest" /> Confirmación del pedido</h2>
-                <p className="text-sm text-teal mb-4">Revisa tu pedido y confirma. Recibirás un código de rastreo.</p>
+                <p className="text-sm text-teal mb-4">Revisa tu pedido y confirma. Te redirigiremos a WhatsApp con el resumen.</p>
                 <div className="space-y-2 text-sm text-teal mb-4">
                   <p><strong className="text-deep">Entrega:</strong> {form.direccion}, {form.ciudad}</p>
                   <p><strong className="text-deep">Contacto:</strong> {form.nombre} · {form.telefono}</p>
