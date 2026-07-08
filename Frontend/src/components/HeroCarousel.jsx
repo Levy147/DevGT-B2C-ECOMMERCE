@@ -2,27 +2,29 @@ import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+const base = import.meta.env.BASE_URL
+
 const SLIDES = [
   {
     title: 'Shampoo 3 en 1 - Cuidado completo para tu familia',
     subtitle: 'Limpieza profunda, acondicionador y brillo en un solo producto. Formula premium con ingredientes naturales.',
     cta: 'Ver Shampoo',
-    link: '/producto/28',
-    bg: '/images/cuidado-personal/shampoo.jpeg',
+    link: '/producto/15',
+    bg: base + 'images/productos/Shampoo3en1.jpeg',
   },
   {
     title: 'Crema Corporal Hidratante - Piel suave todo el dia',
     subtitle: 'Hidratacion intensa con vitamina E y aloe vera. Textura ligera que se absorbe al instante.',
     cta: 'Ver Crema Corporal',
-    link: '/producto/29',
-    bg: '/images/cuidado-personal/crema-corporal.jpeg',
+    link: '/producto/16',
+    bg: base + 'images/productos/CremaCorporal.jpeg',
   },
   {
     title: 'Envios a domicilio en toda tu zona',
     subtitle: 'Pedidos sobre Q100 - envio completamente gratis',
     cta: 'Comprar ahora',
     link: '/categorias',
-    bg: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=500&fit=crop',
+    bg: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=600&fit=crop',
   },
 ]
 

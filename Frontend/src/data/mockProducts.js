@@ -34,6 +34,8 @@ function slugify(category) {
   return category.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '-')
 }
 
+const base = import.meta.env.BASE_URL
+
 export const mockProducts = PRODUCT_TEMPLATES.map((tpl, i) => ({
   id: i + 1,
   name: tpl.name,
@@ -45,5 +47,5 @@ export const mockProducts = PRODUCT_TEMPLATES.map((tpl, i) => ({
   isNew: tpl.isNew ?? false,
   wholesale: tpl.wholesale ?? false,
   stock: 5 + ((i * 7) % 95),
-  image: tpl.image,
+  image: base + tpl.image.slice(1),
 }))
