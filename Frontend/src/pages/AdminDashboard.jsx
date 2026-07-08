@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import Swal from 'sweetalert2'
 import {
-  DollarSign, Clock, AlertTriangle, Pencil, Trash2, Package,
+  DollarSign, Clock, Pencil, Trash2, Package,
   ClipboardList, Mail, Send, Users, Tag, ChevronRight, Archive,
   LayoutGrid, List, ChevronLeft, Percent, Eye,
 } from 'lucide-react'
@@ -17,7 +17,7 @@ import { formatPrice, paginate, getEffectivePrice } from '../utils/productUtils'
 import { confirmChange, buildChangeHtml } from '../utils/confirmDialog'
 
 export default function AdminDashboard() {
-  const { products, updateProduct, deleteProduct, setProductSale, lowStockCount, addProduct } = useProducts()
+  const { products, updateProduct, deleteProduct, setProductSale, addProduct } = useProducts()
   const { orders, pendingCount, todaySales, updateOrderStatus, archiveOrder } = useOrders()
   const { subscribers, sendPromoCampaign } = useSubscribers()
   const { users } = useUsers()
@@ -25,7 +25,7 @@ export default function AdminDashboard() {
 
   const [selectedOrder, setSelectedOrder] = useState(null)
   const [editingId, setEditingId] = useState(null)
-  const [editForm, setEditForm] = useState({ name: '', price: '', stock: '' })
+  const [editForm, setEditForm] = useState({ name: '', price: '' })
   const [saleForm, setSaleForm] = useState({ id: null, salePrice: '' })
   const [showAddForm, setShowAddForm] = useState(false)
   const [addForm, setAddForm] = useState({ name: '', price: '', category: 'Cuidado Personal', image: '', description: '' })
@@ -44,12 +44,11 @@ export default function AdminDashboard() {
     const changes = []
     if (editForm.name !== original.name) changes.push({ label: 'Nombre', before: original.name, after: editForm.name })
     if (parseFloat(editForm.price) !== original.price) changes.push({ label: 'Precio', before: formatPrice(original.price), after: formatPrice(parseFloat(editForm.price)) })
-    if (parseInt(editForm.stock, 10) !== original.stock) changes.push({ label: 'Stock', before: original.stock, after: editForm.stock })
 
     const ok = await confirmChange({ title: '¿Confirmar cambios?', html: buildChangeHtml(changes) })
     if (!ok) return
 
-    updateProduct(id, { name: editForm.name, price: parseFloat(editForm.price) || 0, stock: parseInt(editForm.stock, 10) || 0 })
+    updateProduct(id, { name: editForm.name, price: parseFloat(editForm.price) || 0 })
     setEditingId(null)
     Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Actualizado', showConfirmButton: false, timer: 2000, background: '#f5f8fd' })
   }
@@ -130,7 +129,6 @@ export default function AdminDashboard() {
   const metrics = [
     { label: 'Ventas de Hoy', value: formatPrice(todaySales), icon: DollarSign, bg: 'bg-mint/30' },
     { label: 'Órdenes Activas', value: String(pendingCount), icon: Clock, bg: 'bg-sage/30' },
-    { label: 'Bajo Stock', value: String(lowStockCount), icon: AlertTriangle, bg: 'bg-mint/20' },
   ]
 
   return (
@@ -286,9 +284,8 @@ export default function AdminDashboard() {
                     <p className="font-medium text-deep line-clamp-2 text-xs">{p.name}</p>
                     <p className="text-forest font-bold">{formatPrice(getEffectivePrice(p))}</p>
                     {p.onSale && <span className="text-xs text-red-500 line-through">{formatPrice(p.price)}</span>}
-                    <p className="text-xs text-teal">Stock: {p.stock}</p>
                     <div className="flex gap-1 mt-2">
-                      <button type="button" onClick={() => { setEditingId(p.id); setEditForm({ name: p.name, price: String(p.price), stock: String(p.stock) }) }} className="p-1 rounded hover:bg-mint/30"><Pencil className="w-3 h-3" /></button>
+                      <button type="button" onClick={() => { setEditingId(p.id); setEditForm({ name: p.name, price: String(p.price) }) }} className="p-1 rounded hover:bg-mint/30"><Pencil className="w-3 h-3" /></button>
                       {p.onSale ? (
                         <>
                           <button type="button" onClick={() => setSaleForm({ id: p.id, salePrice: String(p.salePrice) })} className="text-[10px] px-1 rounded bg-mint/40 text-forest">Editar off</button>
@@ -310,13 +307,12 @@ export default function AdminDashboard() {
               </div>
             ) : (
               <table className="w-full text-sm text-left">
-                <thead><tr className="text-teal border-b"><th className="py-2">Producto</th><th>Precio</th><th>Stock</th><th>Oferta</th><th></th></tr></thead>
+                <thead><tr className="text-teal border-b"><th className="py-2">Producto</th><th>Precio</th><th>Oferta</th><th></th></tr></thead>
                 <tbody>
                   {invPaginated.items.map((p) => (
                     <tr key={p.id} className="border-b border-sage/10">
                       <td className="py-2">{editingId === p.id ? <input value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} className="w-full px-1 border rounded text-xs" /> : p.name}</td>
                       <td>{editingId === p.id ? <input value={editForm.price} onChange={(e) => setEditForm({ ...editForm, price: e.target.value })} className="w-16 px-1 border rounded text-xs" /> : formatPrice(getEffectivePrice(p))}</td>
-                      <td>{editingId === p.id ? <input value={editForm.stock} onChange={(e) => setEditForm({ ...editForm, stock: e.target.value })} className="w-12 px-1 border rounded text-xs" /> : p.stock}</td>
                       <td>{p.onSale ? `-${Math.round((1 - p.salePrice / p.price) * 100)}%` : '—'}</td>
                       <td className="text-right whitespace-nowrap">
                         {p.onSale ? (
@@ -330,7 +326,7 @@ export default function AdminDashboard() {
                         {editingId === p.id ? (
                           <button type="button" onClick={() => saveEdit(p.id, p)} className="text-xs text-forest font-bold">Guardar</button>
                         ) : (
-                          <button type="button" onClick={() => { setEditingId(p.id); setEditForm({ name: p.name, price: String(p.price), stock: String(p.stock) }) }}><Pencil className="w-3 h-3 inline" /></button>
+                          <button type="button" onClick={() => { setEditingId(p.id); setEditForm({ name: p.name, price: String(p.price) }) }}><Pencil className="w-3 h-3 inline" /></button>
                         )}
                       </td>
                     </tr>

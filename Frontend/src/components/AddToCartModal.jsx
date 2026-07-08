@@ -2,24 +2,19 @@ import { useState } from 'react'
 import { X, Plus, Minus, ShoppingBag, ShoppingCart } from 'lucide-react'
 import Swal from 'sweetalert2'
 import { useCart } from '../context/CartContext'
-import { useProducts } from '../context/ProductsContext'
 import { getEffectivePrice, formatPrice } from '../utils/productUtils'
 
 export default function AddToCartModal({ product, open, onClose }) {
-  const { addToCart, items } = useCart()
-  const { getProductStock } = useProducts()
+  const { addToCart } = useCart()
   const [qty, setQty] = useState(1)
 
   if (!open || !product) return null
 
-  const inCart = items.find((i) => i.id === product.id)?.quantity ?? 0
-  const stock = getProductStock(product.id)
-  const maxQty = Math.max(0, stock - inCart)
   const price = getEffectivePrice(product)
   const cartItem = { ...product, price }
 
   const handleAdd = (openPanel = false) => {
-    if (qty < 1 || qty > maxQty) return
+    if (qty < 1) return
     addToCart(cartItem, qty, { openPanel })
     Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: `${qty} producto(s) agregado(s)`, showConfirmButton: false, timer: 1500, background: '#f5f8fd' })
     setQty(1)
@@ -43,7 +38,6 @@ export default function AddToCartModal({ product, open, onClose }) {
             <div>
               <p className="font-semibold text-deep text-sm">{product.name}</p>
               <p className="text-xl font-bold text-forest mt-1">{formatPrice(price)}</p>
-              <p className="text-xs text-teal mt-1">{maxQty} disponibles</p>
             </div>
           </div>
 
@@ -52,7 +46,7 @@ export default function AddToCartModal({ product, open, onClose }) {
               <Minus className="w-4 h-4" />
             </button>
             <span className="text-2xl font-bold text-deep w-12 text-center">{qty}</span>
-            <button type="button" onClick={() => setQty((q) => Math.min(maxQty, q + 1))} disabled={qty >= maxQty} className="w-10 h-10 rounded-xl border border-sage/40 flex items-center justify-center hover:bg-mint/30 disabled:opacity-40">
+            <button type="button" onClick={() => setQty((q) => Math.min(99, q + 1))} className="w-10 h-10 rounded-xl border border-sage/40 flex items-center justify-center hover:bg-mint/30">
               <Plus className="w-4 h-4" />
             </button>
           </div>
@@ -62,19 +56,18 @@ export default function AddToCartModal({ product, open, onClose }) {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <button type="button" onClick={() => handleAdd(false)} disabled={maxQty === 0} className="flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-forest to-deep text-mint font-semibold hover:shadow-lg disabled:opacity-50">
+            <button type="button" onClick={() => handleAdd(false)} className="flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-forest to-deep text-mint font-semibold hover:shadow-lg">
               <ShoppingBag className="w-4 h-4" />
               Agregar al carrito
             </button>
-            <button type="button" onClick={() => handleAdd(false)} disabled={maxQty === 0} className="py-3 rounded-xl border-2 border-forest text-forest font-semibold hover:bg-mint/20 disabled:opacity-50">
+            <button type="button" onClick={() => handleAdd(false)} className="py-3 rounded-xl border-2 border-forest text-forest font-semibold hover:bg-mint/20">
               Seguir comprando
             </button>
           </div>
           <button
             type="button"
             onClick={() => handleAdd(true)}
-            disabled={maxQty === 0}
-            className="w-full mt-3 flex items-center justify-center gap-2 py-3 rounded-xl bg-mint/30 text-forest font-medium hover:bg-mint/50 disabled:opacity-50"
+            className="w-full mt-3 flex items-center justify-center gap-2 py-3 rounded-xl bg-mint/30 text-forest font-medium hover:bg-mint/50"
           >
             <ShoppingCart className="w-4 h-4" />
             Agregar e ir al carrito

@@ -28,7 +28,6 @@ export default function ProductDetail() {
 
   const price = getEffectivePrice(product)
   const discount = getDiscountPercent(product)
-  const outOfStock = product.stock === 0
 
   return (
     <StoreLayout>
@@ -63,9 +62,8 @@ export default function ProductDetail() {
                 <li key={f} className="flex items-start gap-2 text-sm text-teal"><Check className="w-4 h-4 text-forest shrink-0" />{f}</li>
               ))}</ul>
             </div>
-            {!outOfStock && <p className="text-sm text-teal mb-4">{product.stock} disponibles</p>}
-            <button type="button" onClick={() => setModalOpen(true)} disabled={outOfStock} className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-forest to-deep text-mint font-bold hover:shadow-xl disabled:opacity-50">
-              <ShoppingBag className="w-5 h-5" /> {outOfStock ? 'Agotado' : 'Agregar'}
+            <button type="button" onClick={() => setModalOpen(true)} className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-forest to-deep text-mint font-bold hover:shadow-xl">
+              <ShoppingBag className="w-5 h-5" /> Agregar
             </button>
           </div>
         </div>

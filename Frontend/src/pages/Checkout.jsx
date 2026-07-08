@@ -5,7 +5,6 @@ import { MapPin, CreditCard, CheckCircle, Truck, ArrowLeft, ArrowRight, Tag } fr
 import StoreLayout from '../components/StoreLayout'
 import { useCart } from '../context/CartContext'
 import { useOrders } from '../context/OrdersContext'
-import { useProducts } from '../context/ProductsContext'
 import { usePromo } from '../context/PromoContext'
 import { formatPrice } from '../utils/productUtils'
 import { buildWhatsAppMessage, openWhatsApp } from '../utils/whatsapp'
@@ -21,7 +20,6 @@ export default function Checkout() {
   const navigate = useNavigate()
   const { items, subtotal, shipping, totalPrice, totalItems, clearCart } = useCart()
   const { placeOrder } = useOrders()
-  const { reduceStock } = useProducts()
   const { validateCode, applyCode, calcDiscount } = usePromo()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -81,7 +79,6 @@ export default function Checkout() {
         payment: { method: form.metodoPago },
       })
       if (appliedPromo) applyCode(appliedPromo.code)
-      reduceStock(order.items)
       clearCart()
 
       const msg = buildWhatsAppMessage(order)

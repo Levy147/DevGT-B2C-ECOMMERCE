@@ -55,6 +55,5 @@ export const mockProducts = PRODUCT_TEMPLATES.map((tpl, i) => ({
   onSale: tpl.onSale ?? false,
   isNew: tpl.isNew ?? false,
   wholesale: tpl.wholesale ?? false,
-  stock: 5 + ((i * 7) % 95),
   image: base + tpl.image.slice(1),
 }))

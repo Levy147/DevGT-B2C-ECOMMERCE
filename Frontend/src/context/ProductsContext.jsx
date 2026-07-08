@@ -38,7 +38,7 @@ export function ProductsProvider({ children }) {
   const addProduct = useCallback((product) => {
     setProducts((prev) => {
       const maxId = prev.reduce((max, p) => Math.max(max, p.id), 0)
-      const newProduct = { id: maxId + 1, ...product, categorySlug: product.category?.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '-') || '', onSale: false, salePrice: null, isNew: false, wholesale: false, stock: 10 }
+      const newProduct = { id: maxId + 1, ...product, categorySlug: product.category?.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '-') || '', onSale: false, salePrice: null, isNew: false, wholesale: false }
       return [...prev, newProduct]
     })
   }, [])
@@ -53,23 +53,6 @@ export function ProductsProvider({ children }) {
     )
   }, [])
 
-  const reduceStock = useCallback((orderItems) => {
-    setProducts((prev) =>
-      prev.map((p) => {
-        const ordered = orderItems.find((i) => i.id === p.id)
-        if (ordered) return { ...p, stock: Math.max(0, p.stock - ordered.quantity) }
-        return p
-      })
-    )
-  }, [])
-
-  const getProductStock = useCallback(
-    (productId) => products.find((p) => p.id === productId)?.stock ?? 0,
-    [products]
-  )
-
-  const lowStockCount = products.filter((p) => p.stock <= 10).length
-
   return (
     <ProductsContext.Provider
       value={{
@@ -78,9 +61,6 @@ export function ProductsProvider({ children }) {
         deleteProduct,
         addProduct,
         setProductSale,
-        reduceStock,
-        getProductStock,
-        lowStockCount,
       }}
     >
       {children}

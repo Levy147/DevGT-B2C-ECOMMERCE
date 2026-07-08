@@ -1,9 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react'
 import { useCart } from '../context/CartContext'
-import { useProducts } from '../context/ProductsContext'
 import { formatPrice, getEffectivePrice } from '../utils/productUtils'
-import Swal from 'sweetalert2'
 
 export default function SlideCart() {
   const navigate = useNavigate()
@@ -18,24 +16,6 @@ export default function SlideCart() {
     updateQuantity,
     removeFromCart,
   } = useCart()
-  const { getProductStock } = useProducts()
-
-  const handleIncrease = (item) => {
-    const stock = getProductStock(item.id)
-    if (item.quantity >= stock) {
-      Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'warning',
-        title: 'Stock máximo alcanzado',
-        showConfirmButton: false,
-        timer: 2000,
-        background: '#f5f8fd',
-      })
-      return
-    }
-    updateQuantity(item.id, 1)
-  }
 
   const goToCheckout = () => {
     closeCart()
@@ -123,7 +103,7 @@ export default function SlideCart() {
                       </span>
                       <button
                         type="button"
-                        onClick={() => handleIncrease(item)}
+                        onClick={() => updateQuantity(item.id, 1)}
                         className="w-7 h-7 rounded-lg bg-white border border-sage/40 flex items-center justify-center hover:bg-mint/30"
                         aria-label="Aumentar"
                       >

@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, ShoppingBag } from 'lucide-react'
-import Swal from 'sweetalert2'
 import { useCart } from '../context/CartContext'
 import { formatPrice, getEffectivePrice } from '../utils/productUtils'
 
 export default function ProductCarousel({ products, excludeId }) {
-  const { addToCart, items } = useCart()
+  const { addToCart } = useCart()
   const filtered = products.filter((p) => p.id !== excludeId)
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -45,19 +44,6 @@ export default function ProductCarousel({ products, excludeId }) {
 
   const handleAdd = (product, e) => {
     e.preventDefault()
-    const inCart = items.find((i) => i.id === product.id)?.quantity ?? 0
-    if (product.stock - inCart <= 0) {
-      Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'warning',
-        title: 'Sin stock disponible',
-        showConfirmButton: false,
-        timer: 2000,
-        background: '#f5f8fd',
-      })
-      return
-    }
     addToCart(product)
   }
 
@@ -120,8 +106,7 @@ export default function ProductCarousel({ products, excludeId }) {
                 <button
                   type="button"
                   onClick={(e) => handleAdd(product, e)}
-                  disabled={product.stock === 0}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-forest to-deep text-mint text-sm font-semibold hover:shadow-md transition-all disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-forest to-deep text-mint text-sm font-semibold hover:shadow-md transition-all"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   Agregar
