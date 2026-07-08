@@ -18,7 +18,7 @@ export function buildWhatsAppMessage(order) {
     'Productos:',
     items,
     '',
-    'Pago: ' + (order.payment?.method === 'efectivo' ? 'Efectivo contra entrega' : order.payment?.method === 'transferencia' ? 'Transferencia bancaria' : 'Tarjeta'),
+    'Pago: ' + (order.payment?.method === 'efectivo' ? 'Efectivo contra entrega' : 'Transferencia bancaria'),
     '',
     'Total: Q' + order.total.toFixed(2),
     'Envio: ' + (order.shippingInfo.method === 'domicilio' ? 'A domicilio' : 'Recoger en tienda'),

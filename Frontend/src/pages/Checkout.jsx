@@ -147,7 +147,7 @@ export default function Checkout() {
               <section className="bg-white/80 rounded-2xl border border-sage/30 p-6 animate-fade-up">
                 <h2 className="font-bold text-deep flex items-center gap-2 mb-2"><CreditCard className="w-5 h-5 text-forest" /> Método de pago</h2>
                 <p className="text-sm text-teal mb-4">Elige un método e ingresa tus datos</p>
-                {[{ v: 'efectivo', l: 'Efectivo contra entrega' }, { v: 'transferencia', l: 'Transferencia bancaria' }, { v: 'tarjeta', l: 'Tarjeta (demo)' }].map((o) => (
+                {[{ v: 'efectivo', l: 'Efectivo contra entrega' }, { v: 'transferencia', l: 'Transferencia bancaria' }].map((o) => (
                   <label key={o.v} className={`flex items-center gap-3 p-4 rounded-xl border mb-3 cursor-pointer ${form.metodoPago === o.v ? 'border-forest bg-mint/20' : 'border-sage/30'}`}>
                     <input type="radio" name="pay" value={o.v} checked={form.metodoPago === o.v} onChange={update('metodoPago')} className="accent-forest" />
                     <span className="text-deep">{o.l}</span>
