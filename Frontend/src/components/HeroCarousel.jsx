@@ -19,13 +19,6 @@ const SLIDES = [
     link: '/producto/16',
     bg: base + 'images/productos/CremaCorporal.jpeg',
   },
-  {
-    title: 'Envios a domicilio en toda tu zona',
-    subtitle: 'Pedidos sobre Q100 - envio completamente gratis',
-    cta: 'Comprar ahora',
-    link: '/categorias',
-    bg: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=600&fit=crop',
-  },
 ]
 
 export default function HeroCarousel() {
