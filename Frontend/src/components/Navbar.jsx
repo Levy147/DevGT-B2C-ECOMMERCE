@@ -1,14 +1,12 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ShoppingCart, Store, LayoutDashboard, LogOut, UserPlus, LogIn, Grid3X3, User } from 'lucide-react'
+import { ShoppingCart, Store, LayoutDashboard, Grid3X3 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
-import { useUsers } from '../context/UsersContext'
 import { formatPrice } from '../utils/productUtils'
 
 export default function Navbar() {
   const { totalItems, totalPrice, openCart, badgePop } = useCart()
   const { isAuthenticated, logout } = useAuth()
-  const { isLoggedIn, currentUser, logoutUser } = useUsers()
   const location = useLocation()
   const navigate = useNavigate()
   const isAdmin = location.pathname.startsWith('/admin') && location.pathname !== '/admin/login'
@@ -42,20 +40,6 @@ export default function Navbar() {
             </>
           ) : isStorefront ? (
             <>
-              {isLoggedIn ? (
-                <Link to="/perfil" className="hidden sm:flex items-center gap-1 px-3 py-2 rounded-xl text-sm text-teal hover:bg-mint/30">
-                  <User className="w-4 h-4" /> {currentUser?.nombre?.split(' ')[0]}
-                </Link>
-              ) : (
-                <>
-                  <Link to="/login" className="hidden sm:flex items-center gap-1 px-3 py-2 rounded-xl text-sm text-teal hover:bg-mint/30">
-                    <LogIn className="w-4 h-4" /> Entrar
-                  </Link>
-                  <Link to="/registro" className="hidden md:flex items-center gap-1 px-3 py-2 rounded-xl text-sm text-teal hover:bg-mint/30">
-                    <UserPlus className="w-4 h-4" /> Registro
-                  </Link>
-                </>
-              )}
               <Link to={isAuthenticated ? '/admin' : '/admin/login'} className="hidden lg:flex items-center gap-1 px-3 py-2 rounded-xl text-sm text-teal hover:bg-mint/30">
                 <LayoutDashboard className="w-4 h-4" /> Admin
               </Link>

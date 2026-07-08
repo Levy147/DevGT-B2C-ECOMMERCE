@@ -6,7 +6,6 @@ import StoreLayout from '../components/StoreLayout'
 import { useCart } from '../context/CartContext'
 import { useOrders } from '../context/OrdersContext'
 import { useProducts } from '../context/ProductsContext'
-import { useUsers } from '../context/UsersContext'
 import { usePromo } from '../context/PromoContext'
 import { formatPrice } from '../utils/productUtils'
 import { buildWhatsAppMessage, openWhatsApp } from '../utils/whatsapp'
@@ -23,7 +22,6 @@ export default function Checkout() {
   const { items, subtotal, shipping, totalPrice, totalItems, clearCart } = useCart()
   const { placeOrder } = useOrders()
   const { reduceStock } = useProducts()
-  const { currentUser, isLoggedIn } = useUsers()
   const { validateCode, applyCode, calcDiscount } = usePromo()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -31,11 +29,11 @@ export default function Checkout() {
   const [appliedPromo, setAppliedPromo] = useState(null)
 
   const [form, setForm] = useState({
-    nombre: currentUser?.nombre ? `${currentUser.nombre} ${currentUser.apellido}` : '',
-    telefono: currentUser?.telefono ?? '',
-    email: currentUser?.email ?? '',
-    direccion: currentUser?.direccion ?? '',
-    ciudad: currentUser?.ciudad ?? 'Guatemala',
+    nombre: '',
+    telefono: '',
+    email: '',
+    direccion: '',
+    ciudad: 'Guatemala',
     referencia: '',
     shippingMethod: 'domicilio',
     metodoPago: 'efectivo',
@@ -68,8 +66,8 @@ export default function Checkout() {
         total: finalTotal,
         promoCode: appliedPromo?.code ?? null,
         customer: {
-          type: isLoggedIn ? 'user' : 'guest',
-          userId: currentUser?.id ?? null,
+          type: 'guest',
+          userId: null,
           nombre: form.nombre,
           email: form.email,
           telefono: form.telefono,
@@ -168,7 +166,7 @@ export default function Checkout() {
                   <p><strong className="text-deep">Entrega:</strong> {form.direccion}, {form.ciudad}</p>
                   <p><strong className="text-deep">Contacto:</strong> {form.nombre} · {form.telefono}</p>
                   <p><strong className="text-deep">Pago:</strong> {form.metodoPago}</p>
-                  <p><strong className="text-deep">Tipo:</strong> {isLoggedIn ? 'Usuario registrado' : 'Invitado'}</p>
+                  <p><strong className="text-deep">Tipo:</strong> Invitado</p>
                 </div>
                 <div className="flex gap-2">
                   <button type="button" onClick={() => setStep(2)} className="flex-1 py-3 rounded-xl border border-sage/40 text-teal">Anterior</button>

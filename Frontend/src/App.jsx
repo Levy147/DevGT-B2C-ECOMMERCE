@@ -13,11 +13,7 @@ import Login from './pages/Login'
 import AdminDashboard from './pages/AdminDashboard'
 import ProductDetail from './pages/ProductDetail'
 import Checkout from './pages/Checkout'
-import Register from './pages/Register'
 import CategoriesPage from './pages/CategoriesPage'
-import CategoryProducts from './pages/CategoryProducts'
-import UserLogin from './pages/UserLogin'
-import Profile from './pages/Profile'
 
 export default function App() {
   return (
@@ -34,9 +30,6 @@ export default function App() {
                       <Route path="/" element={<Home />} />
                       <Route path="/producto/:id" element={<ProductDetail />} />
                       <Route path="/checkout" element={<Checkout />} />
-                      <Route path="/registro" element={<Register />} />
-                      <Route path="/login" element={<UserLogin />} />
-                      <Route path="/perfil" element={<Profile />} />
                       <Route path="/categorias" element={<CategoriesPage />} />
                       <Route path="/categorias/:slug" element={<CategoryProducts />} />
                       <Route path="/admin/login" element={<Login />} />
