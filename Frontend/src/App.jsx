@@ -14,6 +14,7 @@ import AdminDashboard from './pages/AdminDashboard'
 import ProductDetail from './pages/ProductDetail'
 import Checkout from './pages/Checkout'
 import CategoriesPage from './pages/CategoriesPage'
+import CategoryProducts from './pages/CategoryProducts'
 
 export default function App() {
   return (
