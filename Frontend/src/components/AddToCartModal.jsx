@@ -16,7 +16,7 @@ export default function AddToCartModal({ product, open, onClose }) {
   const handleAdd = (openPanel = false) => {
     if (qty < 1) return
     addToCart(cartItem, qty, { openPanel })
-    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: `${qty} producto(s) agregado(s)`, showConfirmButton: false, timer: 1500, background: '#f5f8fd' })
+    Swal.fire({ toast: true, position: 'bottom-start', icon: 'success', title: `${qty} producto(s) agregado(s)`, showConfirmButton: false, timer: 1500, background: '#f5f8fd' })
     setQty(1)
     onClose()
   }

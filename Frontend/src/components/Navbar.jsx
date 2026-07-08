@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ShoppingCart, Store, LayoutDashboard, Grid3X3, LogOut } from 'lucide-react'
+import { ShoppingCart, Store, Grid3X3, LogOut } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { formatPrice } from '../utils/productUtils'
@@ -40,9 +40,6 @@ export default function Navbar() {
             </>
           ) : isStorefront ? (
             <>
-              <Link to={isAuthenticated ? '/admin' : '/admin/login'} className="hidden lg:flex items-center gap-1 px-3 py-2 rounded-xl text-sm text-teal hover:bg-mint/30">
-                <LayoutDashboard className="w-4 h-4" /> Admin
-              </Link>
               <button type="button" onClick={openCart} className="relative flex items-center gap-2 pl-3 pr-2 py-2 rounded-xl bg-gradient-to-br from-forest to-deep text-mint hover:shadow-lg transition-all">
                 <ShoppingCart className="w-5 h-5" />
                 {totalItems > 0 && (
