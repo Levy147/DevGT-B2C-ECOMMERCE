@@ -8,17 +8,21 @@ import {
 import { mockProducts } from '../data/mockProducts'
 import { loadStorage, saveStorage, STORAGE_KEYS } from '../utils/storage'
 
+const PRODUCTS_VERSION = 2
+
 const ProductsContext = createContext(null)
 
 export function ProductsProvider({ children }) {
   const [products, setProducts] = useState(() => {
     const saved = loadStorage(STORAGE_KEYS.products, null)
-    if (!saved || saved.length !== mockProducts.length) return mockProducts
+    const version = loadStorage(STORAGE_KEYS.products + '_version', 0)
+    if (!saved || saved.length !== mockProducts.length || version !== PRODUCTS_VERSION) return mockProducts
     return saved
   })
 
   useEffect(() => {
     saveStorage(STORAGE_KEYS.products, products)
+    saveStorage(STORAGE_KEYS.products + '_version', PRODUCTS_VERSION)
   }, [products])
 
   const updateProduct = useCallback((id, updates) => {

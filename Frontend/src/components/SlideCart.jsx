@@ -151,17 +151,6 @@ export default function SlideCart() {
               <span className="text-teal">Subtotal ({totalItems} productos)</span>
               <span className="font-semibold text-deep">{formatPrice(subtotal)}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-teal">Envío</span>
-              <span className="font-semibold text-deep">
-                {shipping === 0 ? 'Gratis' : formatPrice(shipping)}
-              </span>
-            </div>
-            {subtotal < 100 && subtotal > 0 && (
-              <p className="text-xs text-sage">
-                Agrega {formatPrice(100 - subtotal)} más para envío gratis
-              </p>
-            )}
             <div className="flex justify-between items-center pt-2 border-t border-sage/20">
               <span className="text-teal font-medium">Total</span>
               <span className="text-2xl font-bold text-deep">{formatPrice(totalPrice)}</span>
