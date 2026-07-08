@@ -100,8 +100,8 @@ export default function Login() {
           </button>
 
           <p className="text-center text-xs text-sage">
-            Demo: usuario <span className="font-mono text-teal">admin</span> · contraseña{' '}
-            <span className="font-mono text-teal">fatima2026</span>
+            Demo: usuario <span className="font-mono text-teal">fatima</span> · contraseña{' '}
+            <span className="font-mono text-teal">fatima</span>
           </p>
         </form>
 

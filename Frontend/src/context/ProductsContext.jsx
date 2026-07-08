@@ -35,6 +35,14 @@ export function ProductsProvider({ children }) {
     setProducts((prev) => prev.filter((p) => p.id !== id))
   }, [])
 
+  const addProduct = useCallback((product) => {
+    setProducts((prev) => {
+      const maxId = prev.reduce((max, p) => Math.max(max, p.id), 0)
+      const newProduct = { id: maxId + 1, ...product, categorySlug: product.category?.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '-') || '', onSale: false, salePrice: null, isNew: false, wholesale: false, stock: 10 }
+      return [...prev, newProduct]
+    })
+  }, [])
+
   const setProductSale = useCallback((id, onSale, salePrice) => {
     setProducts((prev) =>
       prev.map((p) =>
@@ -68,6 +76,7 @@ export function ProductsProvider({ children }) {
         products,
         updateProduct,
         deleteProduct,
+        addProduct,
         setProductSale,
         reduceStock,
         getProductStock,

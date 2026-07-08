@@ -17,7 +17,7 @@ import { formatPrice, paginate, getEffectivePrice } from '../utils/productUtils'
 import { confirmChange, buildChangeHtml } from '../utils/confirmDialog'
 
 export default function AdminDashboard() {
-  const { products, updateProduct, deleteProduct, setProductSale, lowStockCount } = useProducts()
+  const { products, updateProduct, deleteProduct, setProductSale, lowStockCount, addProduct } = useProducts()
   const { orders, pendingCount, todaySales, updateOrderStatus, archiveOrder } = useOrders()
   const { subscribers, sendPromoCampaign } = useSubscribers()
   const { users } = useUsers()
@@ -27,6 +27,8 @@ export default function AdminDashboard() {
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({ name: '', price: '', stock: '' })
   const [saleForm, setSaleForm] = useState({ id: null, salePrice: '' })
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [addForm, setAddForm] = useState({ name: '', price: '', category: 'Cuidado Personal', image: '', description: '' })
   const [promoSubject, setPromoSubject] = useState('¡Ofertas en Variedades Fatima!')
   const [promoMessage, setPromoMessage] = useState('Descuentos especiales esta semana.')
   const [newPromoDiscount, setNewPromoDiscount] = useState(10)
@@ -83,6 +85,24 @@ export default function AdminDashboard() {
   const handleRemoveSale = async (product) => {
     const ok = await confirmChange({ title: '¿Quitar oferta?', html: `<p>Se restaurará el precio <strong>${formatPrice(product.price)}</strong></p>` })
     if (ok) setProductSale(product.id, false, null)
+  }
+
+  const handleAddProduct = () => {
+    const price = parseFloat(addForm.price)
+    if (!addForm.name || !price) {
+      Swal.fire({ toast: true, position: 'top-end', icon: 'warning', title: 'Nombre y precio obligatorios', showConfirmButton: false, timer: 2500, background: '#f8fffd' })
+      return
+    }
+    addProduct({
+      name: addForm.name,
+      price,
+      category: addForm.category,
+      image: addForm.image || '/images/productos/placeholder.png',
+      description: addForm.description || addForm.name,
+    })
+    setAddForm({ name: '', price: '', category: 'Cuidado Personal', image: '', description: '' })
+    setShowAddForm(false)
+    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Producto agregado', showConfirmButton: false, timer: 2000, background: '#f8fffd' })
   }
 
   const advanceStatus = async (order) => {
@@ -246,6 +266,7 @@ export default function AdminDashboard() {
           <div className="px-5 py-4 border-b border-sage/20 flex flex-wrap items-center gap-3">
             <Package className="w-5 h-5 text-forest" />
             <h2 className="font-bold text-deep">Inventario</h2>
+            <button type="button" onClick={() => setShowAddForm(true)} className="ml-2 px-3 py-1 rounded-xl bg-forest text-mint text-xs font-semibold flex items-center gap-1">+ Agregar</button>
             <div className="ml-auto flex items-center gap-2">
               <div className="flex rounded-lg border border-sage/40 overflow-hidden">
                 <button type="button" onClick={() => setInvView('grid')} className={`p-1.5 ${invView === 'grid' ? 'bg-mint/40' : ''}`}><LayoutGrid className="w-4 h-4" /></button>
@@ -269,7 +290,10 @@ export default function AdminDashboard() {
                     <div className="flex gap-1 mt-2">
                       <button type="button" onClick={() => { setEditingId(p.id); setEditForm({ name: p.name, price: String(p.price), stock: String(p.stock) }) }} className="p-1 rounded hover:bg-mint/30"><Pencil className="w-3 h-3" /></button>
                       {p.onSale ? (
-                        <button type="button" onClick={() => handleRemoveSale(p)} className="text-[10px] px-1 rounded bg-red-100 text-red-600">Quitar off</button>
+                        <>
+                          <button type="button" onClick={() => setSaleForm({ id: p.id, salePrice: String(p.salePrice) })} className="text-[10px] px-1 rounded bg-mint/40 text-forest">Editar off</button>
+                          <button type="button" onClick={() => handleRemoveSale(p)} className="text-[10px] px-1 rounded bg-red-100 text-red-600">Quitar off</button>
+                        </>
                       ) : (
                         <button type="button" onClick={() => setSaleForm({ id: p.id, salePrice: String(p.price * 0.85) })} className="text-[10px] px-1 rounded bg-mint/40 text-forest">Oferta</button>
                       )}
@@ -278,6 +302,7 @@ export default function AdminDashboard() {
                       <div className="mt-2 flex gap-1">
                         <input type="number" step="0.01" value={saleForm.salePrice} onChange={(e) => setSaleForm({ ...saleForm, salePrice: e.target.value })} className="w-full px-1 py-0.5 rounded border text-xs" />
                         <button type="button" onClick={() => handleSetSale(p)} className="text-xs bg-forest text-mint px-1 rounded">OK</button>
+                        <button type="button" onClick={() => setSaleForm({ id: null, salePrice: '' })} className="text-xs bg-sage/30 text-teal px-1 rounded">X</button>
                       </div>
                     )}
                   </div>
@@ -293,7 +318,15 @@ export default function AdminDashboard() {
                       <td>{editingId === p.id ? <input value={editForm.price} onChange={(e) => setEditForm({ ...editForm, price: e.target.value })} className="w-16 px-1 border rounded text-xs" /> : formatPrice(getEffectivePrice(p))}</td>
                       <td>{editingId === p.id ? <input value={editForm.stock} onChange={(e) => setEditForm({ ...editForm, stock: e.target.value })} className="w-12 px-1 border rounded text-xs" /> : p.stock}</td>
                       <td>{p.onSale ? `-${Math.round((1 - p.salePrice / p.price) * 100)}%` : '—'}</td>
-                      <td className="text-right">
+                      <td className="text-right whitespace-nowrap">
+                        {p.onSale ? (
+                          <>
+                            <button type="button" onClick={() => setSaleForm({ id: p.id, salePrice: String(p.salePrice) })} className="text-[10px] px-1 rounded bg-mint/40 text-forest mr-1">Editar off</button>
+                            <button type="button" onClick={() => handleRemoveSale(p)} className="text-[10px] px-1 rounded bg-red-100 text-red-600 mr-1">Quitar off</button>
+                          </>
+                        ) : (
+                          <button type="button" onClick={() => setSaleForm({ id: p.id, salePrice: String(p.price * 0.85) })} className="text-[10px] px-1 rounded bg-mint/40 text-forest mr-1">Oferta</button>
+                        )}
                         {editingId === p.id ? (
                           <button type="button" onClick={() => saveEdit(p.id, p)} className="text-xs text-forest font-bold">Guardar</button>
                         ) : (
@@ -314,6 +347,48 @@ export default function AdminDashboard() {
             )}
           </div>
         </section>
+
+        {/* Agregar producto modal */}
+        {showAddForm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-deep/50" onClick={() => setShowAddForm(false)} aria-hidden="true" />
+            <div className="relative bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
+              <h3 className="text-xl font-bold text-deep mb-4">Agregar producto</h3>
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs text-teal">Nombre *</label>
+                  <input value={addForm.name} onChange={(e) => setAddForm({ ...addForm, name: e.target.value })} className="w-full px-3 py-2 rounded-xl border border-sage/40 text-sm" />
+                </div>
+                <div>
+                  <label className="text-xs text-teal">Precio *</label>
+                  <input type="number" step="0.01" value={addForm.price} onChange={(e) => setAddForm({ ...addForm, price: e.target.value })} className="w-full px-3 py-2 rounded-xl border border-sage/40 text-sm" />
+                </div>
+                <div>
+                  <label className="text-xs text-teal">Categoría</label>
+                  <select value={addForm.category} onChange={(e) => setAddForm({ ...addForm, category: e.target.value })} className="w-full px-3 py-2 rounded-xl border border-sage/40 text-sm">
+                    <option>Cuidado Personal</option>
+                    <option>Hogar</option>
+                    <option>Bebidas</option>
+                    <option>Alimentos</option>
+                    <option>Limpieza</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs text-teal">URL imagen (opcional, default placeholder)</label>
+                  <input value={addForm.image} onChange={(e) => setAddForm({ ...addForm, image: e.target.value })} className="w-full px-3 py-2 rounded-xl border border-sage/40 text-sm" />
+                </div>
+                <div>
+                  <label className="text-xs text-teal">Descripción (opcional)</label>
+                  <textarea value={addForm.description} onChange={(e) => setAddForm({ ...addForm, description: e.target.value })} className="w-full px-3 py-2 rounded-xl border border-sage/40 text-sm" rows={2} />
+                </div>
+              </div>
+              <div className="flex gap-2 mt-5">
+                <button type="button" onClick={() => setShowAddForm(false)} className="flex-1 px-4 py-2 rounded-xl border border-sage/40 text-teal text-sm">Cancelar</button>
+                <button type="button" onClick={handleAddProduct} className="flex-1 px-4 py-2 rounded-xl bg-forest text-mint text-sm font-semibold">Agregar</button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )
