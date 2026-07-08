@@ -1,7 +1,7 @@
 export const WHATSAPP_NUMBER = '50258570841'
 
 export function buildWhatsAppMessage(order) {
-  const items = order.items.map((i) => `• ${i.name} x${i.quantity} — Q${(i.price * i.quantity).toFixed(2)}`).join('\n')
+  const items = order.items.map((i) => `- ${i.name} x${i.quantity} = Q${(i.price * i.quantity).toFixed(2)}`).join('\n')
 
   return [
     'NUEVO PEDIDO - Variedades Fatima',
