@@ -6,7 +6,7 @@ export async function sendOrderToSheets(order) {
     return false
   }
   try {
-    const res = await fetch(SHEETS_WEBHOOK_URL, {
+    await fetch(SHEETS_WEBHOOK_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },

@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ShoppingCart, Store, LayoutDashboard, Grid3X3 } from 'lucide-react'
+import { ShoppingCart, Store, LayoutDashboard, Grid3X3, LogOut } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { formatPrice } from '../utils/productUtils'
